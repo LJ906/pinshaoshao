@@ -1,11 +1,14 @@
 <template>
   <div class="home">
     <!-- 引入ly-tab  -->
-    <ly-tab
-      v-model="selectedId"
-      :items="items"
-      :options="options"
-      @change="headerChange" />
+    <div class="fix">
+      <ly-tab
+        v-model="selectedId"
+        :items="items"
+        :options="options"
+        @change="headerChange" />
+
+    </div>
 
     <!-- 子路由 -->
     <router-view></router-view>    
@@ -44,10 +47,16 @@ export default {
 
 <style>
 .home {
+  width: 100%;
+  height: 100%;
   background-color: #f5f5f5;
+  padding-top: 40px;
 }
-.ly-tab-active-bar {
-  bottom: 0
+.fix {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 998;
 }
 
 </style>
