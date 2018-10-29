@@ -16,6 +16,20 @@
     <div id="app"></div>
     <!-- built files will be auto injected -->
   </body>
+  <script>
+    function setRem (a) {
+      var i = document.documentElement ,
+          o = "orientationchange" in window ? "orientationchange" : "resize",
+          n = function () {
+              var e = i.clientWidth;
+              e && (i.style.fontSize = e / a + "px")
+          };
+      n()
+      // t.addEventListener && (e.addEventListener(o, n, !1), t.addEventListener("DOMContentLoaded", n, !1))
+    }
+    setRem(10)
+  </script>
+
   <script src="/static/js/fastclick.js"></script>
   <script>
     if ('addEventListener' in document) {
@@ -23,5 +37,7 @@
         FastClick.attach(document.body);
       }, false);
     }
+
   </script>
+
 </html>

@@ -63,7 +63,7 @@ export default {
 <style scoped lang="stylus" ref="stylesheet/stylus">
 .bottom-tab  
   width 100%
-  height 50px
+  height 1.333333rem
   background-color #fff
   position fixed
   left 0
@@ -81,9 +81,9 @@ export default {
     justify-content center
     align-items center
     text-align center
-     font-size 12px
+    font-size .32rem
 
     img 
       width 31%
-      margin-bottom 2px
+      margin-bottom .053333rem
 </style>

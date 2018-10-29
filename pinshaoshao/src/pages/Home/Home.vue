@@ -7,9 +7,7 @@
         :items="items"
         :options="options"
         @change="headerChange" />
-
     </div>
-
     <!-- 子路由 -->
     <router-view></router-view>    
   </div>

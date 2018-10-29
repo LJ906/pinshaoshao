@@ -4,23 +4,28 @@
     <div class="swiper-container">
       <div class="swiper-wrapper">
         <div class="swiper-slide" >
-          <img src="./../imgs/rowing/s1.png" alt="">
+          <img src="./../../imgs/rowing/s1.png" alt="">
         </div>
         <div class="swiper-slide">
-          <img src="./../imgs/rowing/s1.png" alt="">
+          <img src="./../../imgs/rowing/s2.png" alt="">
         </div>
         <div class="swiper-slide">
-          <img src="./../imgs/rowing/s1.png" alt="">
+          <img src="./../../imgs/rowing/s3.png" alt="">
+        </div>
+        <div class="swiper-slide">
+          <img src="./../../imgs/rowing/s4.png" alt="">
         </div>
       </div>
       <div class="swiper-pagination" ></div>
     </div>
-
+    <!--2.中间导航-->
+    <hot-nav></hot-nav>
   </div>
 </template>
 
 <script>
 import Swiper from 'swiper'
+import HotNav from './HotNav'
 import 'swiper/dist/css/swiper.min.css'
 export default {
   name: "hot", 
@@ -38,6 +43,9 @@ export default {
           el: '.swiper-pagination',
         },
       })
+  }, 
+  components: {
+    HotNav
   }
 };
 </script>
