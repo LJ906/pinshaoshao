@@ -18,77 +18,10 @@ export default {
 </script>
 
 <style>
-
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   width: 100%;
   height: 100%;
   background-color: #f5f5f5;
 }
-
-/* @media only screen and (max-width: 480px) {
-    html {
-        font-size:128px
-    }
-}
-
-@media only screen and (max-width: 414px) {
-    html {
-        font-size:110.4px
-    }
-}
-
-@media only screen and (max-width: 412px) {
-    html {
-        font-size:109.86667px
-    }
-}
-
-@media only screen and (max-width: 400px) {
-    html {
-        font-size:106.66667px
-    }
-}
-
-@media only screen and (max-width: 393px) {
-    html {
-        font-size:104.8px
-    }
-}
-
-@media only screen and (max-width: 375px) {
-    html {
-        font-size:100px
-    }
-}
-
-@media only screen and (max-width: 360px) {
-    html {
-        font-size:96px
-    }
-}
-
-@media only screen and (max-width: 345px) {
-    html {
-        font-size:92px
-    }
-}
-
-@media only screen and (max-width: 320px) {
-    html {
-        font-size:85.33333px
-    }
-}
-
-html {
-    -webkit-text-size-adjust: none;
-    font-size: 26.66667vw
-}
-
-@media only screen and (min-width: 640px) {
-    html {
-        font-size:170.66667px
-    }
-} */
-
 </style>

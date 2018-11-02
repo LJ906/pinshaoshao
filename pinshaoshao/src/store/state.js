@@ -1,7 +1,7 @@
 // 所有数据列表放在state中，其他组件随时可以使用
 export default {
-  // // 首页轮播图
-  // homecasual: [],
+  // 首页轮播图
+  homecasual: [],
   // 首页导航
   // homenav: [],
   // // 首页商品列表

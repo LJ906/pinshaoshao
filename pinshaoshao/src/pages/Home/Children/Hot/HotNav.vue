@@ -209,7 +209,7 @@ export default {
   width 100%
   height 4.8rem
   position relative
-  background-color pink
+  background-color #f5f5f5
   padding-bottom .266667rem
   .hot-nav-content
     width 100%
