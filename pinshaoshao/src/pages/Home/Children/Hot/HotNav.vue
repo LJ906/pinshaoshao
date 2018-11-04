@@ -4,7 +4,7 @@
      <div class="hot-nav-content">
        <div class="nav-content-inner">
           <a class="inner-item" 
-            v-for="(item, index) in navList"
+            v-for="(item, index) in homenav"
             :key="index">
             <img :src="item.iconurl" alt="">
             <span>{{item.icontitle}}</span>
@@ -21,112 +21,19 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
 
 export default {
   name: 'hotNave', 
   data () {
     return {
-      navList: [
-        {
-          navId: 1,
-          icontitle: '限时秒杀',
-          iconurl: require('./../../imgs/nav/nav_icon01.png'),
-          jumpUrl: 'https:www.baidu.com'
-        },
-        {
-          navId: 2,
-          icontitle: '限时秒杀',
-          iconurl: require('./../../imgs/nav/nav_icon02.png'),
-          jumpUrl: 'https:www.baidu.com'
-        },
-        {
-          navId: 3,
-          icontitle: '限时秒杀',
-          iconurl: require('./../../imgs/nav/nav_icon03.png'),
-          jumpUrl: 'https:www.baidu.com'
-        },
-       {
-          navId: 4,
-          icontitle: '限时秒杀',
-          iconurl: require('./../../imgs/nav/nav_icon04.png'),
-          jumpUrl: 'https:www.baidu.com'
-        },
-        {
-          navId: 5,
-          icontitle: '限时秒杀',
-          iconurl: require('./../../imgs/nav/nav_icon05.png'),
-          jumpUrl: 'https:www.baidu.com'
-        },
-        {
-          navId: 6,
-          icontitle: '限时秒杀',
-          iconurl: require('./../../imgs/nav/nav_icon06.gif'),
-          jumpUrl: 'https:www.baidu.com'
-        },
-       {
-          navId: 7,
-          icontitle: '限时秒杀',
-          iconurl: require('./../../imgs/nav/nav_icon07.png'),
-          jumpUrl: 'https:www.baidu.com'
-        },
-
-        {
-          navId: 8,
-          icontitle: '限时秒杀',
-          iconurl: require('./../../imgs/nav/nav_icon08.png'),
-          jumpUrl: 'https:www.baidu.com'
-        },
-        {
-          navId: 9,
-          icontitle: '限时秒杀',
-          iconurl: require('./../../imgs/nav/nav_icon09.png'),
-          jumpUrl: 'https:www.baidu.com'
-        },
-        
-        {
-          navId: 10,
-          icontitle: '限时秒杀',
-          iconurl: require('./../../imgs/nav/nav_icon10.png'),
-          jumpUrl: 'https:www.baidu.com'
-        },
-        {
-          navId: 11,
-          icontitle: '限时秒杀',
-          iconurl: require('./../../imgs/nav/nav_icon11.png'),
-          jumpUrl: 'https:www.baidu.com'
-        },
-       {
-          navId: 12,
-          icontitle: '限时秒杀',
-          iconurl: require('./../../imgs/nav/nav_icon12.png'),
-          jumpUrl: 'https:www.baidu.com'
-        },
-
-        {
-          navId: 13,
-          icontitle: '限时秒杀',
-          iconurl: require('./../../imgs/nav/nav_icon13.png'),
-          jumpUrl: 'https:www.baidu.com'
-        },
-        {
-          navId: 14,
-          icontitle: '限时秒杀',
-          iconurl: require('./../../imgs/nav/nav_icon03.png'),
-          jumpUrl: 'https:www.baidu.com'
-        },
-       {
-          navId: 15,
-          icontitle: '限时秒杀',
-          iconurl: require('./../../imgs/nav/nav_icon01.png'),
-          jumpUrl: 'https:www.baidu.com'
-        },
-        {
-          navId: 16,
-          icontitle: '限时秒杀',
-          iconurl: require('./../../imgs/nav/nav_icon02.png'),
-          jumpUrl: 'https:www.baidu.com'
-        }
-      ], 
+      // navList: [
+      //   {
+      //     navId: 1,
+      //     icontitle: '限时秒杀',
+      //     iconurl: require('./../../imgs/nav/nav_icon01.png'),
+      //     jumpUrl: 'https:www.baidu.com'
+      //   }], 
       // 1. 屏幕的宽度
       screenW: window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
       // 2. 滚动内容的宽度
@@ -144,9 +51,9 @@ export default {
     }
   },
   mounted () {
-     
-           this.getBottomBarWidth();
-       this.bindEvent();
+
+    this.getBottomBarWidth();
+    this.bindEvent();
   },
   methods: {
     // 获取滚动条的长度
@@ -188,7 +95,6 @@ export default {
     },
     // 结束触摸
     handleTouchEnd(){
-      console.log('结束触摸');
       this.endFlag = this.barMoveWidth;
     },
 
@@ -199,7 +105,9 @@ export default {
         width: `${this.barXWidth}px`,
         left: `${this.barMoveWidth}px`
       }
-    }
+    }, 
+
+    ...mapState(['homenav'])
   }
 }
 </script>

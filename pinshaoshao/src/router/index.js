@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 const SelectLogin = () => import('@/pages/login/SelectLogin')
 const Login = () => import('@/pages/login/Login')
-const Lianxi = () => import('@/pages/lianxi')
+// const Lianxi = () => import('@/pages/lianxi')
 const Home = () => import('@/pages/Home/Home')
 const Recommend = () => import('@/pages/Recommend/Recommend')
 const Search = () => import('@/pages/Search/Search')
@@ -25,11 +25,11 @@ Vue.use(Router)
 export default new Router({
   routes: [
     // 联系 demo
-    {
-      path: '/lianxi',
-      name: 'lianxi',
-      component: Lianxi
-    },
+    // {
+    //   path: '/lianxi',
+    //   name: 'lianxi',
+    //   component: Lianxi
+    // },
     {
       path: '/selectLogin',
       name: 'selectLogin',
@@ -42,8 +42,8 @@ export default new Router({
     },
     {
       path: '/',
-      redirect: '/home',
-      name: 'home',
+      redirect: '/home/hot',
+      name: 'init',
       component: Home
     },
     {

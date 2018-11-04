@@ -32,61 +32,25 @@ export default {
   name: 'HotShopList',
   data () {
     return {
-      homeshoplist: [
-        {
-          image_url: require("./../../imgs/shop_list/shop_item.png"),
-          goods_name: '【唐幂】整条刺绣民族风围巾女披肩保暖',
-          normal_price: 120,
-          sales_tip: '已拼5345件',
-          bubble: [
-            {
-              avatar: require ("./../../imgs/shop_list/user1.jpg"),
-              avatar: require ("./../../imgs/shop_list/user1.jpg")
-            }
-          ]
-        },
-        {
-          image_url: require("./../../imgs/shop_list/shop_item.png"),
-          goods_name: '【唐幂】整条刺绣民族风围巾女披肩保暖',
-          normal_price: 120,
-          sales_tip: '已拼5345件',
-          bubble: [
-            {
-              avatar: require ("./../../imgs/shop_list/user1.jpg"),
-              avatar: require ("./../../imgs/shop_list/user1.jpg")
-            }
-          ]
-        },
-          {
-          image_url: require("./../../imgs/shop_list/shop_item.png"),
-          goods_name: '【唐幂】整条刺绣民族风围巾女披肩保暖',
-          normal_price: 120,
-          sales_tip: '已拼5345件',
-          bubble: [
-            {
-              avatar: require ("./../../imgs/shop_list/user1.jpg"),
-              avatar: require ("./../../imgs/shop_list/user1.jpg")
-            }
-          ]
-        },
-      ]
+      // homeshoplist: [
+      //   {
+      //     image_url: require("./../../imgs/shop_list/shop_item.png"),
+      //     goods_name: '【唐幂】整条刺绣民族风围巾女披肩保暖',
+      //     normal_price: 120,
+      //     sales_tip: '已拼5345件',
+      //     bubble: [
+      //       {
+      //         avatar: require ("./../../imgs/shop_list/user1.jpg"),
+      //         avatar: require ("./../../imgs/shop_list/user1.jpg")
+      //       }
+      //     ]
+      //   }
+      // ]
     }
   }, 
   computed: {
-    // ...mapState[ 'homeshoplist']
-  },
-  mounted () {
-    this.test( )
-  },
-  methods: {
-    test ( ) {
-      const arr = [1,2,3,4]
-      const arr1 = ['https://www.baidu.com', 'baidu.com', 'secoo.com']
-      console.log(arr1.includes('baidu.com'));
-      
-    }
+    ...mapState(['homeshoplist'])
   }
-
 }
 </script>
 

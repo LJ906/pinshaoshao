@@ -41,14 +41,6 @@ export default {
     headerChange (item, index ) {
       this.$router.replace(this.subRouteUrl[index])
     }
-  },
-  computed: {
-    // getSelectedId () {
-    //   const id =   this.subRouteUrl.findIndex((ele, i)=> {        
-    //     return this.$route.path == ele
-    //   })
-    //   return id
-    // }
   }
 }
 </script>

@@ -9,10 +9,6 @@
           >
           <img :src="item.imgurl" alt="" width="100%">
         </div>
-
-        <router-link tag="div" to="/about">
-          <img src="//t00img.yangkeduo.com/goods/images/2018-10-31/3d285dd0506dc912e9771738ea28e045.jpeg?imageMogr2/format/webp/quality/50" alt="" width="100%">
-        </router-link>
       </div>
 
       <div class="swiper-pagination"></div>
@@ -42,12 +38,11 @@ export default {
   computed: {
     ...mapState(['homecasual'])
   },
-  mounted () {
-    // dispatch actions   
-    this.$store.dispatch('reqHomeCasual');
-    console.log(this.homecasual); 
-
-
+  mounted () { 
+    this.$store.dispatch('reqHomeCasual'); // 请求轮播图数据
+     
+    this.$store.dispatch('reqHomeNav'); // 请求导航数据父组件中请求比较清晰
+    this.$store.dispatch('reqHomeShopList'); // 请求导航数据父组件中请求比较清晰
   }, 
   watch: {
     homecasual () {
@@ -79,8 +74,6 @@ export default {
 img {
   border: 0;
   max-width: 100%;
-  /* width: auto;
-  height: auto; */
   vertical-align: top;
 }
 </style>
