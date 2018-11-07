@@ -1,113 +1,131 @@
 <template>
   <div class="lianxi">
-    <!-- 动画的基本使用1 -->
-    <!-- <button @click="show = !show">切换</button> -->
-    <!-- <transition name="fade">
-      <div class="box" v-if="show">撩课学院</div>
-    </transition> -->
-
-   <!-- 动画的基本使用2  进入和离开 的状态 -->
-
-    <!-- <div>
-        <label>歌手: <input type="text" v-model="singer"></label>
-        <label>歌名: <input type="text" v-model="name"></label>
-        <button @click="add()">添加</button>
-    </div>
-    <transition-group tag="ul"  name="singer">
-      <li v-for="(item, index) in list" :key="index"  @click="del(index)">
-        {{item.singer}}:  {{item.name}} 
+   <!-- 引入拖拽 --> 
+    <draggable element="ul" v-model="imgList" class="drag" :move='allow' :options="dragOptions">
+      <li v-for="(item, index) in imgList" :key="index">
+        <div>{{item.type}}</div>
+        <img :src="item.url" alt="">
       </li>
-    </transition-group> -->
+    </draggable>
 
-    <!-- 引入 animate.css 样例 -->
-    <!-- <button @click="show = !show"> 切换</button>
-    <transition 
-    enter-active-class="swing" 
-    leave-active-class="bounceOut"
-    :duration="{enter: 500, leave: 600}">
-      <img v-if="show" src="./images/brand1.png" alt="" class="animated">
-    </transition> -->
+    <div v-for ="(item, index) in imgList" :key="index">
+
+      <span > {{index }}</span>
+      <span>{{'id: ' + item.type}}</span>
+    </div>
 
 
-    <!-- is属性 和component 实现切换tab栏功能 -->
-    <!-- <button @click=" cpName='login' ">登录</button>
-    <button @click=" cpName='register' ">注册</button>
-    <component :is="cpName"></component> -->
-
-<button @click="storeTest">点击改变值</button>
-<hr>
-count: <span>{{countFromStore}}</span>   |   
-doneTodoCount: <span> {{doneTodoCount}}</span>
+    <draggable class="drag2"  :options="dragOptions">
+      <div v-for ="(item, index) in imgList" :key="index">
+        <input type="text" v-model="item.type">
+        <img :src="item.url" alt="">
+      </div>
+    </draggable>
 
   </div>
 </template>
 
 <script>
+import draggable from "vuedraggable";
 import { mapState, mapMutations, mapGetters } from "vuex";
 export default {
-  name: 'Lianxi',
-  data () {
+  name: "Lianxi",
+  data() {
     return {
-      show: true, 
-      singer: '',
-      name: '',
-      list: [
-        {singer: '周杰伦', name: '东风破'},
-        {singer: '谢霆锋', name: '因为爱, 所以爱'},
-        {singer: '那英', name: '默'},
-        {singer: '刘德华', name: '忘情水'},
-      ], 
-      cpName: 'login'
-    }
+      imgList: [
+        {
+          type: "1",
+          url:
+            "http://cdn.duitang.com/uploads/item/201408/28/20140828142218_PS4fi.thumb.700_0.png"
+        },
+                {
+          type: "1",
+          url:
+            "http://cdn.duitang.com/uploads/item/201408/28/20140828142218_PS4fi.thumb.700_0.png"
+        },
+                {
+          type: "1",
+          url:
+            "http://cdn.duitang.com/uploads/item/201408/28/20140828142218_PS4fi.thumb.700_0.png"
+        },
+        {
+          type: "2",
+          url:
+            "http://imgsrc.baidu.com/forum/w%3D580/sign=b5de60dc8126cffc692abfba89004a7d/ea8dbe315c6034a85c44aec4c81349540823767c.jpg"
+        },
+        {
+          type: "3",
+          url:
+            "http://img0.imgtn.bdimg.com/it/u=2050638809,3513718617&fm=27&gp=0.jpg"
+        },
+        {
+          type: "4",
+          url:
+            "http://img2.imgtn.bdimg.com/it/u=1504788190,2342400802&fm=27&gp=0.jpg"
+        }
+        // {
+        //    type: 'img',
+        //    url:'http://img2.imgtn.bdimg.com/it/u=1504788190,2342400802&fm=27&gp=0.jpg'
+        //  }
+      ],
+      dragOptions: {
+        ghostClass: "ghost",  // default: sortable-ghost
+        chosenClass: 'choosen', // default: sortable-chosen
+        forceFallback: false,
+        scroll: true,  // boolean当排序的容器是个可滚动的区域，拖放可以引起区域滚动
+        sort: true, 
+        scrollSensitivity: 30, 
+        // scrollSpeed:
+      }
+    };
   },
   methods: {
-    del (index) {
-      this.list.splice(index, 1)
-    }, 
-    add () {
-      this.list.push({singer: this.singer, name: this.name})
-    },
-    // 调用store中的方法 
-    storeTest () {
-      this.$store.commit ('changCount')
-    },
-    ...mapMutations(['addItemToTodos'])
-
-  }, 
-  computed: {
-    countFromStore () {
-      return this.$store.state.count
-    },
-    doneTodoCount () {
-      return this.$store.getters.doneTodos
-    },
-    getTodoById () {
-      return this.$store.getters.getTodoById(2)
+    allow() {
+      console.log("move了", this.imgList);
     }
   },
+
   components: {
     // 局部组件
-    login: {
-      name: 'login', 
-      template: '<h2 style="background-color: red; width: 100px; height: 100px;">我要登录</h2>'
-    }, 
-    register: {
-      name: 'register', 
-      template: '<h2 style="background-color: green; width: 200px; height: 200px;">我要注册</h2>'
-    }
+    draggable
   }
-}
+};
 </script>
 
 <style scoped>
-.singer-enter-active {
-  transition: all .3s ease;
+
+.drag {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  cursor: pointer;
 }
-.singer-leave-active {
-  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+
+.drag li {
+  /* flex: 1; */
+  width: 25%;
 }
-.singer-enter, .singer-leave-to {
-  transform: translatey(10px);
-  opacity: 0;
+
+.drag2 div {
+  width: 50%;
+}
+
+.drag img, .drag2 img {
+  max-width: 100%;
+}
+.choosen {
+  border: 1px solid red;
+  /* transform: translate(5px, 3px); */
+}
+.choosen .drag-handle {
+ cursor: move !important;
+}
+               
+.ghost {
+  border: 1px solid red;
+  background-color: #fcfcfc;
+  opacity: .2;
+  transform: none;
 }
 </style>

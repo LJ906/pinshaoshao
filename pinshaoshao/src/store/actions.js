@@ -2,7 +2,8 @@
 import { 
   getHomeCasual,
   getHomeNav,
-  getHomeShopList
+  getHomeShopList,
+  getRecommendShopList
  } from '../api'
 
 
@@ -10,7 +11,8 @@ import {
 import {
   HOME_CASUAL,
   HOME_NAV,
-  HOME_SHOP_LIST
+  HOME_SHOP_LIST,
+  RECOMMEND_SHOP_LIST
 
 } from './mutation-types'
 
@@ -36,4 +38,8 @@ export default {
     commit(HOME_SHOP_LIST, {homeshoplist: res.message.goods_list});
   },
 
+  async reqRecommendShopList ({commit}, params) {
+    const res = await getRecommendShopList(params);
+    commit(RECOMMEND_SHOP_LIST, {recommendshoplist: result.message})
+  }
 }
