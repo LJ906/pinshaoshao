@@ -3,7 +3,8 @@ import {
   getHomeCasual,
   getHomeNav,
   getHomeShopList,
-  getRecommendShopList
+  getRecommendShopList,
+  getSearchGoods
  } from '../api'
 
 
@@ -12,7 +13,8 @@ import {
   HOME_CASUAL,
   HOME_NAV,
   HOME_SHOP_LIST,
-  RECOMMEND_SHOP_LIST
+  RECOMMEND_SHOP_LIST,
+  SEARCH_GOODS
 
 } from './mutation-types'
 
@@ -34,12 +36,22 @@ export default {
   //请求首页商品数据
   async reqHomeShopList ({commit}) {
     const res = await getHomeShopList();
-    console.log('reqHomeShopList',res)
     commit(HOME_SHOP_LIST, {homeshoplist: res.message.goods_list});
   },
 
+  // 推荐列表商品数据
   async reqRecommendShopList ({commit}, params) {
     const res = await getRecommendShopList(params);
-    commit(RECOMMEND_SHOP_LIST, {recommendshoplist: result.message})
-  }
+    commit(RECOMMEND_SHOP_LIST, {recommendshoplist: res.message})
+    params.callback && params.callback();
+  },
+
+  // 推荐搜索列表数据
+  async reqSearchGoods ({commit}, callback) {
+    const res = await getSearchGoods();    
+    commit(SEARCH_GOODS, {searchgoods: res.message.data})
+    callback&& callback();
+  },
+
+
 }

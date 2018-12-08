@@ -3,7 +3,8 @@ import {
   HOME_CASUAL,
   HOME_NAV,
   HOME_SHOP_LIST,
-  RECOMMEND_SHOP_LIST,  // 推荐商品列表
+  RECOMMEND_SHOP_LIST,  // 推荐商品列表，
+  SEARCH_GOODS
 } from './mutation-types'
 
 export default {
@@ -23,8 +24,16 @@ export default {
     state.homeshoplist = homeshoplist;    
   },
 
+  // 推荐页商品数据
   [RECOMMEND_SHOP_LIST] (state, {recommendshoplist}) {
-    // 分页请求后，整合到一个数组
+    // 分页获取
     state.recommendshoplist = state.recommendshoplist.concat(recommendshoplist);
-  }
+  },
+
+  // 搜索页商品列表
+  [SEARCH_GOODS] (state, {searchgoods}) {
+    // 分页请求后，整合到一个数组
+    state.searchgoods = state.searchgoods.concat(searchgoods);
+  },
+
 }

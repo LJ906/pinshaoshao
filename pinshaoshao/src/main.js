@@ -16,6 +16,10 @@ Vue.use(LyTab)
 
 Vue.use(MintUI)
 
+// import photoswipe from 'photoswipe'
+// Vue.use(photoswipe)
+
+
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

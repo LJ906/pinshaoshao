@@ -42,7 +42,7 @@
           <div :class="{current: !loginMode}">
             <section>
               <section class="login-message">
-                <input type="tel" maxlength="11" placeholder="用户名/手机/邮箱">
+                <input type="tel" maxlength="11" placeholder="用户名/手机/邮箱"  >
               </section>
               <section class="login-verification">
                 <input type="tel" maxlength="8" placeholder="密码">
@@ -51,7 +51,7 @@
                     <img  src="./images/show_pwd.png" alt="" width="20">
                 </div>
               </section>
-              <section class="login_message">
+              <section class="login-message">
                 <input type="text" maxlength="11" placeholder="验证码">
                 <img class="get_verification" src="./images/captcha.svg" alt="captcha">
               </section>
@@ -122,25 +122,25 @@ export default {
     height 100%
     background #fff
     .login-inner
-      padding-top 60px
+      padding-top 1.6rem
       width 80%
       margin 0 auto
       .login-header
         .login-logo
-          font-size 40px
+          font-size 1.066667rem
           font-weight bold
           color mediumpurple
           text-align center
         .login-header-title
-          padding-top 40px
-          padding-bottom 10px
+          padding-top 1.066667rem
+          padding-bottom .266667rem
           text-align center
           >a
             color #333
-            font-size 14px
-            padding-bottom 4px
+            font-size .373333rem
+            padding-bottom .106667rem
             &:first-child
-              margin-right 40px
+              margin-right 1.066667rem
             &.current
               color mediumpurple
               font-weight 700
@@ -154,7 +154,7 @@ export default {
             input
               width 100%
               height 100%
-              padding-left 8px
+              padding-left .213333rem
               box-sizing border-box
               border 1px solid #ddd
               border-radius 4px
@@ -164,64 +164,64 @@ export default {
                 border 1px solid mediumpurple
             .login-message
               position relative
-              margin-top 16px
-              height 48px
-              font-size 14px
+              margin-top .426667rem
+              height 1.28rem
+              font-size .373333rem
               background #fff
               .get-verification
                 position absolute
                 top 50%
-                right 10px
+                right .266667rem
                 transform translateY(-50%)
                 border 0
                 color #ccc
-                font-size 14px
+                font-size .373333rem
                 background transparent
             .login-verification
               position relative
-              margin-top 16px
-              height 48px
-              font-size 14px
+              margin-top .426667rem
+              height 1.28rem
+              font-size .373333rem
               background #fff
               .switch-show
                 position absolute
-                right 10px
-                top 12px
+                right .266667rem
+                top .32rem
                 img
                   display none
                 img.on
                   display block
             .login-hint
-              margin-top 12px
+              margin-top .32rem
               color #999
-              font-size 12px
-              line-height 20px
+              font-size .32rem
+              line-height .533333rem
               >a
                 color mediumpurple
           .login-submit
             display block
             width 100%
-            height 42px
-            margin-top 30px
-            border-radius 4px
+            height 1.12rem
+            margin-top 1.8rem
+            border-radius .106667rem
             background mediumpurple
             color #fff
             text-align center
-            font-size 16px
-            line-height 42px
+            font-size .426667rem
+            line-height 1.12rem
             border 0
         .login-back
           display block
           width 100%
-          height 42px
-          margin-top 15px
-          border-radius 4px
+          height 1.12rem
+          margin-top .4rem
+          border-radius .106667rem
           background transparent
           border: 1px solid mediumpurple
           color mediumpurple
           text-align center
-          font-size 16px
-          line-height 42px
+          font-size .426667rem
+          line-height 1.12rem
 </style>
 
 

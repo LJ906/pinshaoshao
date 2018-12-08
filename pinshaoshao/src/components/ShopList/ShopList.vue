@@ -1,6 +1,6 @@
 <template>
   <a class="recommend-item">
-    <img :src="item.thumb_url" alt="">
+    <img v-lazy="item.thumb_url" alt="">
     <h4 class="item-title">{{item.short_name}}</h4>
     <div class="item-bottom">
       <span class="item-price">￥{{item.price}}</span>
