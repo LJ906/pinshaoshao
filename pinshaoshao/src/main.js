@@ -11,9 +11,11 @@ import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
 //  home顶部的滑动tab
 import LyTab from 'ly-tab'
+
+// 配置字体图标
+import '@/common/css/style.css'
+
 Vue.use(LyTab)
-
-
 Vue.use(MintUI)
 
 // import photoswipe from 'photoswipe'

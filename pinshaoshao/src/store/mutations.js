@@ -4,7 +4,8 @@ import {
   HOME_NAV,
   HOME_SHOP_LIST,
   RECOMMEND_SHOP_LIST,  // 推荐商品列表，
-  SEARCH_GOODS
+  SEARCH_GOODS,
+  USER_INFO
 } from './mutation-types'
 
 export default {
@@ -36,4 +37,9 @@ export default {
     state.searchgoods = state.searchgoods.concat(searchgoods);
   },
 
+  // 获取用户信息 obj
+  [USER_INFO] (state, {userInfo}) {
+    // 分页请求后，整合到一个数组
+    state.userInfo = userInfo;
+  },
 }

@@ -1,16 +1,21 @@
 <template>
 
-<div class="photo-swiper">
-  <ul class="ulList">
-    <li 
-    v-for="(ele, i) in ulList" 
-    :key="i"
-    @click="changeBig(ulList , i, ele, $event)">
-      <img :src="ele.big" class="bigImg" alt="">
-      <img :src="ele.small"  class="smallImg" alt="">
-    </li>
-  </ul>
+  <div class="photo-swiper">
+    <ul class="ulList">
+      <li 
+      v-for="(ele, i) in ulList" 
+      :key="i"
+      @click="changeToBigImg(ulList , i, ele, $event)">
+        <img :src="ele.big" class="bigImg" alt="">
+        <img :src="ele.small"  class="smallImg" alt="">
+      </li>
+    </ul>
 
+
+  <div class="center">
+    按实际的福利卡接收到
+    <span class="edit"></span>
+  </div>
 
 
 <!-- Root element of PhotoSwipe. Must have class pswp. -->
@@ -91,75 +96,96 @@ export default {
   data () {
     return { 
       items: [
-        {
-          src: 'https://placekitten.com/600/400',
-          w: 600,
-          h: 400
-        },
+        // {
+        //   src: 'https://pic12.secooimg.com/res/content/10/10/1Z8Wfdfe35fcd4cfc04440b0495a949fe30168.jpg',
+        //   w: 600,
+        //   h: 400
+        // },
        
       ],
       ulList: [
         {
-          'small': 'https://pic12.secooimg.com/res/content/10/10/1Z8Wfdfe35fcd4cfc04440b0495a949fe30168.jpg',
-          'big': 'https://pic12.secooimg.com/res/commentImg/50/51/1Z8W03234c7a66680747c09591b023777c3886.jpeg'
+          id: 1,
+          small: 'https://pic12.secooimg.com/res/content/10/10/1Z8Wfdfe35fcd4cfc04440b0495a949fe30168.jpg',
+          big: 'https://pic12.secooimg.com/res/content/10/10/1Z8Wfdfe35fcd4cfc04440b0495a949fe30168.jpg',
+          info: {
+            big_w: 300,
+            big_h:200
+          }
         },
-        // {
-        //   'small': 'https://pic12.secooimg.com/res/content/10/10/1Z8Wfdfe35fcd4cfc04440b0495a949fe30168.jpg',
-        //   'big': 'https://pic12.secooimg.com/res/commentImg/50/51/1Z8W03234c7a66680747c09591b023777c3886.jpeg'
-        // },
-        // {
-        //   'small': 'https://pic12.secooimg.com/res/content/10/10/1Z8Wfdfe35fcd4cfc04440b0495a949fe30168.jpg',
-        //   'big': 'https://pic12.secooimg.com/res/commentImg/50/51/1Z8W03234c7a66680747c09591b023777c3886.jpeg'
-        // },
-         
-
+        {
+          id: 1,
+          small: 'https://pic12.secooimg.com/res/content/10/10/1Z8Wfdfe35fcd4cfc04440b0495a949fe30168.jpg',
+          big: 'https://pic12.secooimg.com/res/content/10/10/1Z8Wfdfe35fcd4cfc04440b0495a949fe30168.jpg',
+          info: {
+            big_w: 300,
+            big_h:200
+          }
+        },
       ],
       currentIndex: 0
     }
   },
   mounted () {
+    console.log(this.imgList);
 
   },
   methods: {
     // 初始化photoswiper
-    init (items, index) {
+    init ( ) {
       var pswpElement = document.querySelectorAll('.pswp')[0];
       var options = {
-          index: index    // index 作为参数传进来
+          index: this.currentIndex    // 切换到点击的图片index
       };
 
       // Initializes and opens PhotoSwipe
-      var gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, items, options);
-      gallery.init();
+      var pswp = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, this.items, options);
+      pswp.init();
+
+      pswp.goTo(this.currentIndex);
     },
-    changeBig (  ulList, i, ele,$event) {
+    changeToBigImg (ulList, i, ele,$event) {
       this.currentIndex = i;
-      console.log('event', $event);
+      // console.log('event', $event);
       const bigImgSrc = ele.big;
       const smallImg = $event.target
       const bigImg = smallImg.previousElementSibling
-      
+  
 
-      const w = $event.target.naturalWidth;
-      const h = $event.target.naturalHeight;
-        
-      this.items.push({
-        src: bigImgSrc,
-        width: bigImg.naturalWidth,
-        height: bigImg.naturalHeight
+      let tempArr = ulList.map((ele, i)=> {
+        return {
+          src: ele.big,
+          w: ele.info.big_w,
+          h: ele.info.big_h
+        }
       })
 
+      this.items = tempArr
 
+      // 移动到 i的位置
+      }
+
+  },
+  computed: {
+    imgList () {
+      
+      
+
+     return this.ulList.map((ele, i)=> {
+        return {
+          src: ele.big,
+          w: ele.info.big_w,
+          h: ele.info.big_h
+        }
+      })
+ 
     }
-
   },
 
   watch : {
-    items: function () {
-      console.log('变化',this.items);
-      
+    items: function () {      
       this.$nextTick (()=> {
-        this.init(this.items, this.currentIndex)
+        this.init()
       })
     }
   }
@@ -186,5 +212,22 @@ img {
 
 .ulList li {
   width: 150px;
+}
+
+.center {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  height: 40px;
+  line-height: 40px;
+  padding-right: -40px
+}
+.edit {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 40px;
+  height: 40px;
+  background-color: red;
 }
 </style>

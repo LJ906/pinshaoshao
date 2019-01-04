@@ -16,7 +16,8 @@
       <!--面板表单部分-->
       <div class="login-content">
         <form>
-          <!--手机验证码登录部分-->
+
+          <!--短信登录部分-->
           <div :class="{current: loginMode}">
             <section class="login-message">
               <input type="tel" maxlength="11" placeholder="手机号" v-model="phone">
@@ -38,26 +39,40 @@
               <a href="javascript:;">服务协议与隐私政策</a>
             </section>
           </div>
+
           <!--账号登录部分-->
           <div :class="{current: !loginMode}">
             <section>
               <section class="login-message">
-                <input type="tel" maxlength="11" placeholder="用户名/手机/邮箱"  >
+                <input type="tel" maxlength="11" placeholder="用户名/手机/邮箱" v-model="user_name" >
               </section>
               <section class="login-verification">
-                <input type="tel" maxlength="8" placeholder="密码">
-                 <div class="switch-show">
-                    <img class="on" src="./images/hide_pwd.png" alt="" width="20">
-                    <img  src="./images/show_pwd.png" alt="" width="20">
+                <input :type="pwdMode ? 'text' : 'password' " v-model="pwd" maxlength="8" placeholder="密码8位">
+								<div class="switch-show">
+									<img 
+										:class="{on: !pwdMode}" 
+										src="./images/hide_pwd.png" 
+										alt="" 
+										width="20" 
+										@click="pwdMode = !pwdMode">
+									<img 
+										:class="{on: pwdMode}" 
+										src="./images/show_pwd.png" 
+										alt="" width="20" 
+										@click="pwdMode = !pwdMode">
                 </div>
               </section>
               <section class="login-message">
-                <input type="text" maxlength="11" placeholder="验证码">
-                <img class="get_verification" src="./images/captcha.svg" alt="captcha">
+                <input type="text" maxlength="11" placeholder="验证码" v-model="captcha">
+                <img 
+                  class="get_verification" 
+                  :src="baseUrl + '/api/captcha' " 
+                  alt="captcha">
+                
               </section>
             </section>
           </div>
-          <button class="login-submit">登录</button>
+          <button class="login-submit" @click.prevent="login">登录</button>
         </form>
         <button class="login-back" @click="$router.back()">返回</button>
       </div>
@@ -65,52 +80,158 @@
   </div>
 </template>
 <script>
+import {getPhoneCode, phoneCodeLogin, pwdLogin} from '@/api'
+ 
+import { mapActions } from 'vuex';
 import {Toast} from 'mint-ui';
+
 export default {
   name: 'login',
   data () {
     return {
+      baseUrl: 'http://localhost:3000',
       loginMode: true, // 登录方式，true 验证码登录 false 账号登录
       phone: '', // 手机号码
       countDown: 0, // 倒计时
-      pwdMode: true, // 密码的显示方式 true 密文 false 明文
-      pwd: '', // 密码
       code: '', // 验证码
-      userInfo: {}, // 用户的信息
+      pwdMode: false, // 密码的显示方式 true明文， false 暗文
+      pwd: '', // 密码
       user_name: '', // 用户名
       captcha: '',  // 图形验证码
+      userInfo: {}, // 用户的信息
       timer: null
     }
   }, 
   computed: {
-    // 验证手机号是否合理
+    // 验证手机号 11位
     phoneRight() {
       // return /^[1][3,4,5,7,8][0-9]{9}$/.test(this.phone)
       return /^[1]\d{10}$/.test(this.phone)
     }
   },
   methods: {
-    // 获取验证码
-    getVerifyCode () {     
+    // 引入action中的方法 存储用户信息
+    ...mapActions(['syncUserInfo']),
+    // 1. 获取验证码
+    async getVerifyCode () {   
+      // 1.1 校验手机号  
       if (!this.phoneRight) {
         Toast('请输入正确的手机号');
         return
       }
-      // 倒计时      
+
+      // 1.2开启倒计时      
       this.countDown  = 60
-      this.timer = setInterval(()=>{
+
+      this.timer = setInterval(()=> {
         this.countDown--
         if (this.countDown === 0) {
           clearInterval(this.timer)
         }
-      }, 1000)
-   
+      }, 1000)     
+    
       // 获取验证码 接口放回数组 result
-      //  如果返回数据成功则 清除定时器, 倒计时数归0 
-       clearInterval(this.timer)
-      this.countDown = 0
+      try {
+        const result = await getPhoneCode ({phone: this.phone})
+        console.log('短信验证码：' , result);        
+        const {success_code, message} = result
+        if (success_code && success_code == 200) {
+            // this.code = message;
+            // 暂存验证码
+        } else {
+          Toast({
+            message: message,
+            position: 'center',
+            duration: 3000
+          });
+        }
+        
+      } catch (error) {
+        Toast('短信验证码获取失败');
+      }
+      //  如果返回数据成功则 清除定时器, 倒计时数归0
 
+      // clearInterval(this.timer);
+      // this.countDown = 0;
+    },
+
+    
+    // 密码的显示方式
+    // dealPwdMode(flag) {
+		// 	console.log('flag', !flag);			
+    //   this.pwdMode = !flag;
+    // },
+
+    //  登录 (短信验证码登录  + 账号密码登录)
+    async login () {
+      // 短信验证码登录方式
+      if (this.loginMode) {
+        if (!this.phone) {
+          Toast('请输入正确的手机号');
+          return;
+        } else if (!this.phoneRight) {
+          Toast("请输入正确手机号码!");
+          return;
+        }
+  
+        if (!this.code) {
+          Toast('请输入验证码');
+          return;
+        } else if (!(/^\d{6}$/gi.test(this.code))) {
+          Toast("请输入正确的验证码!");
+          return;
+        }  
+        // 发请求    
+        const res = await phoneCodeLogin( {phone: this.phone, code: this.code})
+        if (res.success_code === 200) {
+          const {id, user_name, user_phone} = res.message
+          // 记录用户信息
+          this.userInfo = {id, user_name, user_phone}          
+        } else {
+          Toast (res.message)
+        }
+      } else {
+				
+				// 账号密码登录
+ 				if (!this.user_name) {
+          Toast('请输入用户名/手机/邮箱!');
+          return;
+        } else if (!this.pwd) {
+          Toast("请输入密码!");
+          return;
+        } else if (!this.captcha) {
+					Toast("请输入验证码!");
+					return;
+				}
+
+				// 用户名 和密码登录
+				const res = await pwdLogin( {name: this.user_name, pwd: this.pwd, captcha: this.captcha})
+        if (res.success_code === 200) {
+          const {id, user_name, user_phone} = res.message
+          // 记录用户信息
+          console.log('登录成功');
+          
+          this.userInfo = {id, user_name, user_phone}          
+        } else {
+          Toast (res.message)
+        }
+
+        
+      }
+  
+      // 6.  登录成功 后续处理，记录用户信息到store中
+      if (this.userInfo.id) {
+        // 登录完成后记录用户信息
+        this.syncUserInfo(this.userInfo)
+        // 返回主页面
+        this.$router.replace('./me')
+        // this.$router.back();
+      } else {
+        Toast(this.userInfo.message);        
+      }
+       
     }
+
   }
 }
 </script>
@@ -177,6 +298,8 @@ export default {
                 color #ccc
                 font-size .373333rem
                 background transparent
+              .phone_right 
+                color mediumpurple
             .login-verification
               position relative
               margin-top .426667rem
@@ -186,7 +309,7 @@ export default {
               .switch-show
                 position absolute
                 right .266667rem
-                top .32rem
+                top .32rem				
                 img
                   display none
                 img.on

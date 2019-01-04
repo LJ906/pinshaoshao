@@ -4,7 +4,9 @@ import {
   getHomeNav,
   getHomeShopList,
   getRecommendShopList,
-  getSearchGoods
+  getSearchGoods,
+  getUserInfo,
+  pwdLogin,
  } from '../api'
 
 
@@ -14,7 +16,8 @@ import {
   HOME_NAV,
   HOME_SHOP_LIST,
   RECOMMEND_SHOP_LIST,
-  SEARCH_GOODS
+  SEARCH_GOODS,
+  USER_INFO
 
 } from './mutation-types'
 
@@ -53,5 +56,9 @@ export default {
     callback&& callback();
   },
 
+  // 获取用户信息 
+  syncUserInfo ({commit}, userInfo) {
+    commit(USER_INFO, {userInfo})
+  }
 
 }

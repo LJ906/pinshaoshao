@@ -1,8 +1,9 @@
 import ajax from './ajax'
 
 // 1. 基础路径
-// const BASE_URL = '/api';
-const BASE_URL = 'http://localhost:3000';
+const BASE_URL = '/api';
+// const BASE_URL = 'http://localhost:3000';
+// const BASE_URL = '';
 // 请求数据
 
 // 热门（首页)轮播图
@@ -20,3 +21,29 @@ export const getRecommendShopList = (params) => ajax(BASE_URL + '/api/recommends
 
 // 2.5 请求搜索的列表数据
 export const getSearchGoods = () => ajax(BASE_URL + '/api/searchgoods');
+
+// 2.6 获取手机短信验证码 
+export const getPhoneCode = (params) => ajax(BASE_URL + '/api/send_code', params);
+
+// 2.7 短信验证码登录
+export const phoneCodeLogin = (params) => ajax(BASE_URL + '/api/login_code', params, 'POST');
+
+// 2.8 用户名和密码登录
+// export const pwdLogin = (name, pwd, captcha) => ajax(BASE_URL + '/api/login_pwd', {name, pwd, captcha}, 'POST');
+export const pwdLogin = (params) => ajax(BASE_URL + '/api/login_pwd', params, 'POST');
+
+// 2.9 根据id查询用户信息
+export const getUserInfo = (params) => ajax(BASE_URL + '/api/user_info', params);
+
+// 2.10 退出登录
+export const getLogout = () => ajax(BASE_URL + '/api/logout');
+
+// 2.11 修改用户信息
+export const changeUserInfo = (user_id, user_name, user_sex, user_address, user_birthday, user_sign) => ajax(BASE_URL + '/api/change_user_msg', {
+  user_id,
+  user_name,
+  user_sex,
+  user_address,
+  user_birthday,
+  user_sign
+}, 'POST');

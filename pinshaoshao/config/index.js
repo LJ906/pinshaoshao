@@ -17,6 +17,7 @@ module.exports = {
         changeOrigin: true, // 支持跨域
         pathRewrite: { // 重写路径: 去掉路径中开头的'/api'
           '^/api': '',
+          // 这里理解成用本地8081端口的请求 'http://localhost:8081/api' ===> 'http://www.abc.com/api',后面重写api路径 /
         }
       }
     },

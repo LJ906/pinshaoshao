@@ -7,14 +7,20 @@
         :items="items"
         :options="options"
         @change="headerChange" />
-    </div>
-    <!-- 子路由 -->
-    <router-view></router-view>    
+    </div> 
+ 
+      <!-- 需要缓存的组件会在这里显示 -->
+    <keep-alive>
+      <router-view v-if="$route.meta.keepAlive"></router-view>
+    </keep-alive>
+    <!-- 这里是不被缓存的视图组件，比如 page3 -->
+    <router-view v-if="!$route.meta.keepAlive"></router-view> 
   </div>
 </template>
 
 <script>
 export default {
+  name: 'home',
   data () {
     return {
       selectedId: 0,

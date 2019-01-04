@@ -4,7 +4,14 @@
 
 <script>
 export default {
+  data () {
+    return {
 
+    }
+  }, 
+  created () {
+    console.log('alive bag', this.$route.meta.keepAlive)
+  }
 }
 </script>
 

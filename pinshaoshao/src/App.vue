@@ -1,6 +1,12 @@
 <template>
   <div id="app">
-    <router-view/>
+    <!-- 需要缓存的组件会在这里显示 -->
+    <keep-alive>
+      <router-view v-if="$route.meta.keepAlive"></router-view>
+    </keep-alive>
+
+    <!-- 这里是不被缓存的视图组件，比如 page3 -->
+    <router-view v-if="!$route.meta.keepAlive"></router-view>
     <tab-bar v-show="$route.meta.showBottomBar"></tab-bar>
   </div>
 </template>
