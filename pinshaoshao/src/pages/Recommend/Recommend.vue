@@ -1,127 +1,122 @@
 <template>
-  <div class="recommend-container" ref="wrapper">    
-    <ul class="recommend">
-      <shop-list 
-        v-if="recommendshoplist"
-        v-for="(shop, index) in recommendshoplist" :item="shop" :key="index"/>
+  <div class="recommend-container" ref="wrapper">
+      <!-- userInfo.id &&  -->
+    <ul class="recommend content" v-if="recommendshoplist.length > 0">
+      <shop-list
+        tag="li"
+        v-for="(item, index) in recommendshoplist"
+        :item=item
+        :key="index"
+        :addToCart="handleAddToCart"
+      />
     </ul>
-
+    <!-- <select-login v-else/> -->
   </div>
 </template>
 
 <script>
-// 页面加载图标
-import { Indicator } from 'mint-ui';
-import BScroll from 'better-scroll';
 import {mapState} from 'vuex';
+import {Indicator} from 'mint-ui'; // 页面加载图标
+import BScroll from 'better-scroll';
+import {Toast} from 'mint-ui';
+
 import ShopList from '@/components/ShopList/ShopList';
+import {addGoodsToCart} from '@/api/index';
+import SelectLogin from './../Login/SelectLogin';
+
 export default {
     name: 'recommend',
     data () {
-    return {
-        // 模拟数据后续可删
-        // recommendshoplist: [
-        //     {
-        //     thumb_url: '//t00img.yangkeduo.com/goods/images/2018-10-26/aceb3b24e1446426a2f91f7896d56fb1.jpeg?imageMogr2/sharpen/1%7CimageView2/2/w/372/q/70/format/webp',
-        //     short_name: '爱丽丝的附近按时离得近',
-        //     price: '677',
-        //     sales_tip: '特价'
-        //     },
-        //     {
-        //     thumb_url: '//t00img.yangkeduo.com/goods/images/2018-10-26/aceb3b24e1446426a2f91f7896d56fb1.jpeg?imageMogr2/sharpen/1%7CimageView2/2/w/372/q/70/format/webp',
-        //     short_name: '哈哈哈我是第二个',
-        //     price: '899',
-        //     sales_tip: '双十一'
-        //     },
-        // ],
-
-        page: 1,
-        count: 10, // 每页条数
-    }
-  },
+        return {
+            page: 1,
+            count: 10, // 每页条数
+        }
+    },
     computed:{
-        ...mapState(['recommendshoplist'])
+        ...mapState(['recommendshoplist', 'userInfo'])
     },
     mounted() {   
         // 加载图标
+        console.log('mounted')
         Indicator.open('正在加载数据...');
         this.$store.dispatch('reqRecommendShopList', {
             page: this.page,
             count: this.count,
             callback: () => {
-                // 请求成功后关掉加载
-                Indicator.close();        
+                Indicator.close();                
+                this.$nextTick(() => {  
+                    this._initBScroll();           
+                })      
             }
         })
     },
     watch: {
-    // dom选择完后初始化 当recomdshoplist 发生改变是重新初始化 better-scroll
-    // 
-    recommendshoplist () {        
-        this.$nextTick(() => {          
-            // 让当前的页码+1
-            this.page += 1;
-            // 初始化
-            this._initBScroll();          
-        })
+        recommendshoplist () {   
+            this.page += 1;                      
+            // this.$nextTick(() => {          
+            //     this._initBScroll();                  
+            // })            
+        }
+    },
+    methods: {
+        // 如果子元素或者父元素 DOM 结构发生改变的时候，必须重新调用 scroll.refresh() 方法重新计算来确保滚动效果的正常。
+        // dom加载完成后，初始化betterscrll. 用 watch监控list的变化
+        // 初始化betterScroll
+        _initBScroll() {
+            if (!this.$refs.wrapper) return;
+            // 1.1 初始化
+            this.listScroll = new BScroll(this.$refs.wrapper, {
+                scrollY: true,
+                probeType: 3
+            });
+
+            // 1.2 监听滑动列表 touchEnd
+            this.listScroll.on('touchEnd', (pos)=> {
+                // 1.2.1 下拉刷新
+                if (pos.y >= 50) {
+                    console.log('下拉刷新');
+                    // Indicator.open('正在刷新');                
+                }
+                
+                // 1.2.2 上拉加载 |当前滑动距离| > |最大滑动值|
+                if ( pos.y + 20 < this.listScroll.maxScrollY) {
+                    console.log('page', this.page);                    
+                    console.log('上拉加载更多');                 
+                    Indicator.open('正在加载数据...');
+                    this.$store.dispatch('reqRecommendShopList', {
+                        page: this.page, 
+                        count: this.count, 
+                        callback: ()=>{
+                            Indicator.close();
+                        }
+                    });  
+                }                
+            }) 
+            // 1.3 监听scrollEnd的时候重新计算列表的高度。否则显示不全
+            this.listScroll.on('scrollEnd', (pos)=> {     
+                this.listScroll.refresh();
+            })
+        },
+        // 加入购入车
+        async handleAddToCart (goods) {  
+            const {goods_id, goods_name, thumb_url, price} =  goods;
+            const result = await addGoodsToCart ({
+                user_id: this.userInfo.id, 
+                goods_id, 
+                goods_name, 
+                thumb_url, 
+                price            
+            })
+        
+            if (result.success_code == 200) {
+                Toast('加入购物车成功')
+            }        
+        }
+    },
+    components: {
+        ShopList,
+        SelectLogin
     }
-  },
-  methods: {
-    // 如果子元素或者父元素 DOM 结构发生改变的时候，必须重新调用 scroll.refresh() 方法重新计算来确保滚动效果的正常。
-    // dom加载完成后，初始化betterscrll. 用 watch监控list的变化
-    // 初始化betterScroll
-    _initBScroll() {
-        // 1.1 初始化
-        this.listScroll = new BScroll(this.$refs.wrapper, {
-            scrollY: true,
-            probeType: 3
-        });
-        /**
-         * pos指的是wrapper 的当前位置， 整个wrapper的位移。 y 正 则下拉刷新， 正常滑动的情况y是负值，
-         * maxScrollY 滚动的位置 负值 固定值，上拉加载 滑动部分超过最大滑动值，则  pos.y 负值 < maxScrollY 负值
-         */
-
-        // 1.2 监听滑动列表 touchEnd
-        this.listScroll.on('touchEnd', (pos)=> {
-            // 1.2.1 下拉刷新
-            if (pos.y >= 50) {
-                console.log('下拉刷新');
-                Indicator.open('正在刷新');
-                this.$store.dispatch('reqRecommendShopList', {
-                    page: this.page, 
-                    count: this.count, 
-                    callback: ()=>{
-                        Indicator.close();
-                    }
-                });  
-            }
-            
-            // 1.2.2 上拉加载 |当前滑动距离| > |最大滑动值|
-            if (this.listScroll.maxScrollY > pos.y + 20 ) {
-                console.log('上拉加载');
-                Indicator.open('正在加载数据...');
-                this.$store.dispatch('reqRecommendShopList', {
-                    page: this.page, 
-                    count: this.count, 
-                    callback: ()=>{
-                        Indicator.close();
-                    }
-                });            
-            }
-            
-        }) 
-
-        // 1.3 监听scrollEnd的时候重新计算列表的高度。否则显示不全
-        this.listScroll.on('scrollEnd', (pos)=> {
-            console.log('scrollEnd');
-            this.listScroll.refresh()
-        })
-    }
-  },
-
-  components: {
-    ShopList
-  }
 }
 </script>
 

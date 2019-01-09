@@ -80,9 +80,8 @@
   </div>
 </template>
 <script>
-import {getPhoneCode, phoneCodeLogin, pwdLogin} from '@/api'
- 
-import { mapActions } from 'vuex';
+import {getPhoneCode, phoneCodeLogin, pwdLogin} from '@/api'; 
+import {mapActions } from 'vuex';
 import {Toast} from 'mint-ui';
 
 export default {
@@ -129,14 +128,12 @@ export default {
           clearInterval(this.timer)
         }
       }, 1000)     
-    
-      // 获取验证码 接口放回数组 result
+
       try {
         const result = await getPhoneCode ({phone: this.phone})
         console.log('短信验证码：' , result);        
         const {success_code, message} = result
         if (success_code && success_code == 200) {
-            // this.code = message;
             // 暂存验证码
         } else {
           Toast({
@@ -154,13 +151,6 @@ export default {
       // clearInterval(this.timer);
       // this.countDown = 0;
     },
-
-    
-    // 密码的显示方式
-    // dealPwdMode(flag) {
-		// 	console.log('flag', !flag);			
-    //   this.pwdMode = !flag;
-    // },
 
     //  登录 (短信验证码登录  + 账号密码登录)
     async login () {

@@ -104,6 +104,7 @@ export default {
     ...mapState(["userInfo"])
   },
   methods: {
+    
     // 1. 修改性别
     selectSex(props) {
       // console.log(props);
@@ -112,7 +113,6 @@ export default {
     // 格式化生日日期
     handleBirthday (value) {
       // value:Fri Jan 01 1960 08:00:00 GMT+0800 (中国标准时间)
-      console.log('value', value);
       this.user_birthday = moment(value).format("YYYY年MM月DD日");
 
     },
@@ -128,19 +128,18 @@ export default {
         this.user_sign
       )
 
-
       if(res.success_code === 200) {
         // 3.4  重新调用修改用户信息方法， 更新本地数据
             this.$store.dispatch('getUserInfo');
+            Toast('修改成功')
             // // 3.5 返回主界面
             setTimeout(()=>{
                this.$router.replace('/me');
             }, 2000)
 
-      } else {
-        
+      } else {        
         Toast({
-           message: result.message,
+           message: res.message,
            position: 'bottom',
            duration: 2000
         });

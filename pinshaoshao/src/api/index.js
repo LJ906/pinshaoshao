@@ -1,8 +1,8 @@
 import ajax from './ajax'
 
 // 1. 基础路径
-const BASE_URL = '/api';
-// const BASE_URL = 'http://localhost:3000';
+// const BASE_URL = '/api';
+const BASE_URL = 'http://localhost:3000';
 // const BASE_URL = '';
 // 请求数据
 
@@ -47,3 +47,16 @@ export const changeUserInfo = (user_id, user_name, user_sex, user_address, user_
   user_birthday,
   user_sign
 }, 'POST');
+
+// 2.12 加入购物车
+export const addGoodsToCart = ({user_id, goods_id, goods_name, thumb_url, price}) => ajax(BASE_URL + '/api/add_shop_cart', {
+  user_id, 
+  goods_id, 
+  goods_name, 
+  thumb_url, 
+  price
+}, 'POST');
+
+// 2.13获取购物车数据
+export const getCartsGoods = () => ajax(BASE_URL + '/api/cart_goods');
+export const deleteCartGoodsSingle = (params) => ajax(BASE_URL + '/api/delete_goods', params);

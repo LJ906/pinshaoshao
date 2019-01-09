@@ -17,6 +17,7 @@ const Man = () => import('@/pages/Home/Children/Man')
 const Mbaby = () => import('@/pages/Home/Children/Mbaby')
 const UnderWear = () => import('@/pages/Home/Children/UnderWear')
 const MeDetail = () => import('@/pages/Me/MeDetail')
+const MeSetting = () => import('@/pages/Me/MeSetting')
 
 // 练习 demo 
 const Lianxi = () => import('@/pages/lianxi')
@@ -79,7 +80,7 @@ export default new Router({
     },
     {
       path: '/selectLogin',
-      name: 'selectLogin',
+      name: 'SelectLogin',
       meta: {
         showBottomBar: false,
         keepAlive: false,
@@ -253,6 +254,15 @@ export default new Router({
         keepAlive: false
       },
       component: MeDetail
+    },
+    {
+      path: '/setting',
+      name: 'MeSetting',
+      meta: {
+        showBottomBar: false,
+        keepAlive: false
+      },
+      component: MeSetting
     }
 
   ]

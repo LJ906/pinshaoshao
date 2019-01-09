@@ -7,15 +7,11 @@
     <router-link tag="button" to="/login">手机登录</router-link>
   </div>
 </template>
-<script>
-export default {
-  name: 'login', 
-  data() {
-    return {
 
+<script>
+    export default {
+        name: "SelectLogin"
     }
-  }
-}
 </script>
 <style scoped lang="stylus" ref="stylesheet/stylus">
   .select-login
@@ -44,5 +40,4 @@ export default {
       top 130px
       left 50%
       margin-left -100px
-
 </style>

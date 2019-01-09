@@ -14,10 +14,6 @@ export default {
   props:{
     showSearchPanel: Function
   },
-  methods: {
-
-  }
-
 }
 </script>
 

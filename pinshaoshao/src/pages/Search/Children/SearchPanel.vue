@@ -3,9 +3,14 @@
   <!-- 搜索框 -->
   <div class="search-nav" >
     <div class="search-input" >
-      <input ref="mySearch" type="search" autofocus>
-      <img class="search-nav-icon" src="../images/search.png" alt="">
-      <span class="search-txt">搜索</span>
+      <input 
+      style="padding-left: 12px;" 
+      ref="mySearch" 
+      type="search" 
+      autofocus
+      v-model="searchValue">
+      <img v-show="!searchValue" class="search-nav-icon" src="../images/search.png" alt="">
+      <span v-show="!searchValue" class="search-txt">搜索</span>
     </div>
     <span class="cancel" @click="showSearchPanel(false)" >取消</span>
   </div>
@@ -31,13 +36,18 @@
 
 <script>
 export default {
-  name: 'searchPanel',
+  name: 'SearchPanel',
+  data() {
+    return {
+      searchValue: ''
+    }
+  },
   props: {
     isShow: Boolean,
     showSearchPanel: Function
   },
   mounted () {
-     this.$refs['mySearch'].focus();
+ 
   }
 
 
@@ -47,6 +57,10 @@ export default {
 
 <style scoped lang="stylus" ref="stylesheet/stylus">
 @import "../../../common/stylus/mixins.styl"
+input[type="search"]::-webkit-search-cancel-button{
+    display: none;
+}
+
 .search-panel
   width 100%
   height 100%

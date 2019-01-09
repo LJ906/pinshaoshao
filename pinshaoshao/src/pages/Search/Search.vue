@@ -5,7 +5,7 @@
     <div class="shop">
       <!--左边-->
       <div class="menu-wrapper">
-        <ul>
+        <ul style="position:relative" >
           <!--current-->
           <li class="menu-item"
               v-for="(goods, index) in searchgoods"
@@ -19,7 +19,7 @@
       </div>
       <!--右边-->
       <div class="shop-wrapper">
-        <ul ref="shopsParent">
+        <ul ref="shopsParent" style="position: relative">
           <li class="shops-li" v-for="(goods, index1) in searchgoods" :key="index1">
             <div class="shops-title">
               <h4>{{goods.name}}</h4>
@@ -101,8 +101,9 @@
 
         // 1.3 监听右侧的滑动事件
         this.rightScroll.on('scroll', (pos) => {            
-          this.scrollY = Math.abs(pos.y); // 页面滚动的高度
-            this._leftScroll(this.currentIndex - 3);            
+          this.scrollY = Math.abs(pos.y); // 页面滚动的高度         
+          
+          this._leftScroll(this.currentIndex - 3);     // 左边滚动到currentIndex -3的位置        
         })
       },
 
@@ -112,18 +113,17 @@
         const tempArr = [];
         // 1.2.2 定义变量记录高度
         let top = 0;
-        tempArr.push(top);
-        // 1.2.3 遍历li标签, 取出右边所有li的高度
+        // tempArr.push(top);
         let allLis = this.$refs.shopsParent.getElementsByClassName('shops-li');
         Array.prototype.slice.call(allLis).forEach(li => {
-          top += li.clientHeight;
-          tempArr.push(top);
+          tempArr.push(li.offsetTop);
         });
+        
         // 1.2.4 更新数据
         this.rightLiTops = tempArr;    
       },
 
-      // 1.3  点击切换
+      // 1.3  左边点击切换
       clickLeftItem(index) {
         this.rightScroll.scrollTo(0, -this.rightLiTops[index], 300);
       },
@@ -143,6 +143,7 @@
 
 <style scoped lang="stylus" ref="stylesheet/stylus">
   @import "../../common/stylus/mixins.styl"
+
   .search
     background #F5F5F5
     width 100%

@@ -3,9 +3,9 @@
     <img v-lazy="item.thumb_url" alt="">
     <h4 class="item-title">{{item.short_name}}</h4>
     <div class="item-bottom">
-      <span class="item-price">￥{{item.price}}</span>
+      <span class="item-price">￥{{item.price/100}}</span>
       <span class="item-sales">{{item.sales_tip}}</span>
-      <button class="item-btn">加入购物车</button>
+      <button class="item-btn" @click="addToCart(item)">加入购物车</button>
     </div>
   </a>
 </template>
@@ -25,7 +25,11 @@ export default {
     }
   },
   props: {
-    item: Object
+    item: Object,
+    addToCart: {
+      type: Function, 
+      default:  ()=> {}
+    }
   }
 }
 </script>
@@ -75,6 +79,8 @@ export default {
         font-size .266667rem
         background-color transparent
         color red
+
+
   
     
 </style>
