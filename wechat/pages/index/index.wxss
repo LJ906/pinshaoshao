@@ -1,0 +1,161 @@
+/* index.css */
+
+/* 顶部轮播图 */
+
+.swiper-wrapper {
+  width: 750rpx;
+  height: 400rpx;
+}
+
+.slide-item .slide-image {
+  width: 100%;
+  height: 100%;
+}
+
+.cart-wrapper {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  padding: 20rpx;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.cart-wrapper .cart-item {
+  margin-bottom: 10rpx;
+  width: 20%;
+  height: 160rpx;
+  cursor: pointer;
+}
+
+.cart-item image {
+  width: 100%;
+  height: 100%;
+}
+
+.cart-item-hover {
+  background-color: rgb(204, 173, 173);
+}
+
+/* 标题 */
+.title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 40rpx;
+  height: 120rpx;
+  background-color: #7f2121;
+}
+
+/* 商品列表样式 */
+
+.recomd-list-wrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  background: #f5f5f5;
+  font-size: 32rpx;
+}
+.proList-item {
+  display: flex;
+  flex-direction: column;
+  width: 49%;
+  background-color: #f5f5f5;
+  padding-bottom: 40rpx;
+  color: #1c1717;
+  text-align: left;
+  font-size: 26rpx;
+  font-family: PingFangSC-Light;
+}
+
+.proList-item:nth-child(2n-1) {
+  margin-right: 1%;
+}
+
+image {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.proList-item .proList-item-img {
+  position: relative;
+  width: 374rpx;
+  height: 374rpx;
+}
+
+.proList-item .proList-item-bottom {
+  /* height: 332rpx; */
+  padding: 0 30rpx;
+}
+
+.proList-item .proList-item-brand {
+  margin-top: 50rpx;
+  height: 32rpx;
+  line-height: 32rpx;
+  font-size: 26rpx;
+  font-family: "Futura-Medium";
+}
+
+.proList-item .proList-item-title {
+  margin-top: 8rpx;
+  height: 44rpx;
+  line-height: 44rpx; 
+  color: #1C1717;
+}
+
+.proList-item .proList-item-price {
+  display: flex;
+  margin-top: 8rpx;
+  height: 30rpx;
+  line-height: 30rpx;
+  font-family: Futura-Medium;
+  font-size: 36rpx;
+  color: #000b0b;
+  
+}
+.proList-item .price-tips {
+  display: inline-block;
+  margin-left: 16rpx;
+  padding: 0 6rpx;
+  font-size: 20rpx;
+  color: #fff;
+  background: #f8a120;
+}
+
+.proList-item .proList-item-price-line {
+  display: flex;
+  margin-top: 5rpx;
+  height: 34rpx;
+  line-height: 34rpx;
+  color: #999;
+  font-size: 24rpx;
+  font-family: 'FuturaLT-Light';
+  text-decoration: line-through;
+}
+
+.proList-item .proList-item-label {
+  margin-top: 15rpx;
+  height: 14rpx;
+  line-height: 14rpx;
+  color: #8b572a;
+  font-size: 24rpx;
+}
+
+.proList-item .proList-item-btn {
+  width: 60%;
+  height: 70rpx;
+  line-height: 70rpx;
+  font-size: 24rpx;
+  background-color: #8b572a;
+}
+
+/* 单行省略号 */
+
+.elipsise-single {
+  overflow: hidden;
+  white-space: nowrap;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+}

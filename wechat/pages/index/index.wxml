@@ -1,0 +1,65 @@
+<swiper 
+  indicator-dots="{{indicatorDots}}" 
+  autoplay="{{autoplay}}" 
+  interval="{{interval}}" 
+  duration="{{duration}}" 
+  indicator-color="rgba(255, 255,255, .5)" 
+  indicator-active-color="#333" 
+  circular="true" 
+  class='swiper-wrapper'>
+  <block wx:for="{{bannerImages}}" wx:key="{{index}}">
+    <swiper-item class="slide-item" >
+      <image src="{{item}}" class="slide-image" />
+    </swiper-item>
+  </block>
+</swiper>
+
+<view class='cart-wrapper'>
+  <block wx:for= "{{cartImage}}" wx:key="{{item.cartId}}">
+    <navigator 
+      class='cart-item' 
+      hover-class="cart-item-hover"
+      open-type='switchTab'
+      url="{{item.path}}" 
+      data-cateId="{{item.cartId}}">
+      <image src="{{item.img}}" class='cart-image'/>
+    </navigator>
+  </block>
+</view>
+
+<!-- 产品列表 模板-->
+<template name="proList">
+    <view class='proList-item'>
+       <view class="proList-item-img">
+        <image  src="{{item.image_url}}" />
+      </view>
+      <view class="proList-item-bottom">
+        <view class='proList-item-brand elipsise-single'> {{item.sales_tip}}</view>
+        <view class='proList-item-title elipsise-single'> {{item.short_name}}</view>
+        <view class="proList-item-price">
+            <text>￥{{item.price/100}}</text>
+            <text class="price-tips">一口价</text>
+        </view>      
+
+        <view class="proList-item-price-line">           
+          <text>￥{{item.price/100}}</text>
+          <text> </text>
+        </view>
+        <view class="proList-item-label">
+          <text> 特价 | </text>
+          <text> 特价</text>
+        </view>         
+      </view>
+    </view>
+</template>
+<!-- 产品列表 -->
+<view class="title">
+  <text>今日推荐</text>
+  <text>RECOMMEND FOR YOU</text>
+</view>
+<view class='recomd-list-wrapper'>
+
+  <block wx:for="{{recommendList}}" wx:key="index">
+    <template is="proList" data="{{item}}"/>
+  </block>
+</view>

@@ -19,7 +19,7 @@ export const getHomeShopList = () => ajax(BASE_URL + '/api/homeshoplist');
 // 2.4 请求推荐的商品数据
 export const getRecommendShopList = (params) => ajax(BASE_URL + '/api/recommendshoplist', params);
 
-// 2.5 请求搜索的列表数据
+// 2.5 请求搜索的列表数据 左边分类列表
 export const getSearchGoods = () => ajax(BASE_URL + '/api/searchgoods');
 
 // 2.6 获取手机短信验证码 

@@ -1,0 +1,53 @@
+{
+  "pages": [
+    "pages/category/category",
+    "pages/index/index",
+    "pages/cart/cart",
+    "pages/me/me"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#FFF",
+    "navigationBarTitleText": "今天的你",
+    "navigationBarTextStyle": "black",
+    "backgroundTextStyle": "light",
+    "enablePullDownRefresh": true,
+    "backgroundColor": "#ccc"
+  },
+  "tabBar": {
+    "color": "#000000",
+    "selectedColor": "#f00",
+    "backgroundColor": "#fff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "./images/icon_home@3x.png",
+        "selectedIconPath": "./images/icon_home_active@3x.png"
+      },
+      {
+        "pagePath": "pages/category/category",
+        "text": "分类",
+        "iconPath": "./images/icon_category@3x.png",
+        "selectedIconPath": "./images/icon_category_active@3x.png"
+      },
+      {
+        "pagePath": "pages/cart/cart",
+        "text": "购物车",
+        "iconPath": "./images/icon_cart@3x.png",
+        "selectedIconPath": "./images/icon_cart_active@3x.png"
+      },
+      {
+        "pagePath": "pages/me/me",
+        "text": "我的",
+        "iconPath": "./images/icon_me@3x.png",
+        "selectedIconPath": "./images/icon_me_active@3x.png"
+      }
+    ]
+  },
+  "networkTimeout": {
+    "request": 10000,
+    "downloadFile": 10000
+  },
+  "debug": true
+}

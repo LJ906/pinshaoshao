@@ -1,0 +1,77 @@
+<!--分类页面-->
+<view class="section">
+  <view class="section_title">
+   <input placeholder="搜索" auto-focus  />
+   <icon type="search" size="20"/>
+  </view>
+  <view class="category-content">     
+    <scroll-view
+      scroll-y
+      style="height: {{cartHight}}"
+      class="category-left"
+      bindscrolltoupper="upper"
+      bindscrolltolower="lower"
+      bindscroll="scroll"
+      scroll-top="{{scrollTop}}"
+      scroll-into-view="{{toView}}" 
+      scroll-with-animation='true'> 
+      <view class="ul-list" >
+        <view    
+          wx:for="{{searchGoods}}" 
+          wx:key="{{index}}"
+          data-index="{{index}}"
+          id="{{'floor' + index}}"
+          class="ul-li {{index === currentIndex ? 'current' : ''}}"
+          bindtap="handleTapLeft"
+          > 
+          {{item.name + index}}
+        </view>        
+      </view>  
+    </scroll-view>
+    
+    <view class="category-right">
+
+      <scroll-view
+        scroll-y
+        style="height: {{cartHight}}"
+        class="category-right"
+        bindscrolltoupper="upper"
+        bindscrolltolower="lower"
+        bindscroll="scroll"
+        scroll-top="{{scrollTop}}"
+        scroll-into-view="{{toView}}" 
+        scroll-with-animation='true'> 
+        <view class="ul-list-right" >
+          <!-- <view    
+            wx:for="{{searchGoods}}" 
+            wx:key="{{index}}"
+            data-index="{{index}}"
+            id="{{'floor' + index}}"
+            class="ul-li {{index === currentIndex ? 'current' : ''}}"
+            bindtap="handleTapLeft"
+            > 
+            {{item.name + index}}
+          </view>         -->
+
+          <view class="ul-li-right">
+              <view class="right-title">
+                 <text>标题</text>
+                 <text>查看更多 ></text>
+              </view>
+              <view  class="right-category">
+              <!-- 里面的图片项 -->
+                <view class="right-category-item">
+                  <image src=""></image>
+                  <text>名称</text>
+                </view>
+              </view>
+
+          </view>
+        </view>  
+        </scroll-view>
+    </view>
+  
+  </view>
+   
+
+</view>
